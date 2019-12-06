@@ -38,27 +38,74 @@ npm install --save react-native-material-dropdown
 ## Usage
 
 ```javascript
-import React, { Component } from 'react';
-import { Dropdown } from 'react-native-material-dropdown';
+import React from "react"
+import { View, Text, StyleSheet } from "react-native"
+import { Dropdown } from "react-native-material-dropdown"
+import { TextField } from "../text-field/text-field"
+let data = [
+  {
+    value: {
+      account: "TK_fdkkdfl",
+      amount: "1000.00",
+    },
+  },
+  {
+    value: {
+      account: "TK_fkkkdfl",
+      amount: "1000.00",
+    },
+  },
+  {
+    value: {
+      account: "TK_fdaskdfl",
+      amount: "10123.00",
+    },
+  },
+]
 
-class Example extends Component {
-  render() {
-    let data = [{
-      value: 'Banana',
-    }, {
-      value: 'Mango',
-    }, {
-      value: 'Pear',
-    }];
-
-    return (
-      <Dropdown
-        label='Favorite Fruit'
-        data={data}
-      />
-    );
-  }
+const TextDisplay = props => {
+  const { amount, account } = props
+  return (
+    <View style={styles.container}>
+      <Text>{account}</Text>
+      <Text>{amount}</Text>
+    </View>
+  )
 }
+
+const DropDown = () => {
+  const renderBase = props => {
+    const { value } = props
+    let amount = "0"
+    let account = "Bank name..."
+    if (value && value.amount && value.account) {
+      amount = value.amount
+      account = value.account
+    }
+
+    return <TextDisplay amount={amount} account={account} />
+  }
+  return (
+    <Dropdown
+      label="Favorite Fruit"
+      data={data}
+      renderBase={renderBase}
+      subtitleStyle={{ color: "red" }}
+    />
+  )
+}
+
+export default DropDown
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+})
+
 ```
 
 ## Properties
